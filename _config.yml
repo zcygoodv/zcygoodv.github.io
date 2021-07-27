@@ -1,6 +1,0 @@
-deploy:
-  type: git
-  repository: https://github.com/zcygoodv/zcygoodv.github.io
-  branch: master
-
-theme: jekyll-theme-tactile
