@@ -1,4 +1,3 @@
-theme: jekyll-theme-tactile
 deploy:
   type: git
   repository: https://github.com/zcygoodv/zcygoodv.github.io
