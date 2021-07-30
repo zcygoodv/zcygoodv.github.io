@@ -1,0 +1,30 @@
+/* Here is your custom css styles. */
+div.description.center-align{
+	color:#FFFFFF;
+	font-weight:bold;
+}
+
+ul.right{
+	margin-top:10px;
+	
+}
+div#navContainer.nav-wrapper.container{
+	color:#FFFFFF;
+	font-weight:bold;
+}
+div.cover-social-link{
+     display:none;
+}
+a.waves-effect.waves-light.btn{
+	background-color:#F2D2DD;
+	color:#FFFFFF;
+	font-weight:bold;
+	/*border-width:2px;*/
+	border-style:none;
+}
+div#busuanzi_container_page_pv.info-break-policy{
+	display:none;
+}
+div.row.tag-cate{
+	margin-top:30px;
+}
